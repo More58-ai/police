@@ -33,14 +33,14 @@
         /* КНОПКИ ПІДРОЗДІЛІВ */
         .unit-nav { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-top: 30px; max-width: 400px; }
 
-        /* SIDEBAR (ВИСУВНЕ ВІКНО) */
+        /* SIDEBAR */
         .sidebar { position: fixed; top: 0; right: -100%; width: 100%; max-width: 450px; height: 100%; background: rgba(5,5,5,0.98); z-index: 3000; transition: 0.5s cubic-bezier(0.77, 0, 0.175, 1); padding: 80px 40px; border-left: 2px solid var(--gold); overflow-y: auto; }
         .sidebar.active { right: 0; }
         .side-logo { width: 180px; display: block; margin: 0 auto 30px; animation: float 3s ease-in-out infinite; }
         @keyframes float { 0%, 100% { transform: translateY(0); filter: drop-shadow(0 0 5px var(--blue)); } 50% { transform: translateY(-15px); filter: drop-shadow(0 0 20px var(--blue)); } }
         .side-text { font-size: 15px; line-height: 1.8; opacity: 0.8; margin-bottom: 40px; text-align: justify; }
 
-        /* РЕЄСТР (КРАСИВИЙ ДИЗАЙН) */
+        /* РЕЄСТР */
         .staff-page { position: fixed; inset: 0; background: radial-gradient(circle at top, #111, #050505); z-index: 4000; display: none; padding: 100px 5% 50px; overflow-y: auto; }
         .staff-container { max-width: 1200px; margin: 0 auto; }
         .staff-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 25px; margin-top: 30px; }
@@ -68,7 +68,7 @@
         .staff-ava { width: 70px; height: 70px; border-radius: 15px; object-fit: cover; border: 2px solid rgba(255,215,0,0.2); background: #111; }
         .staff-info b { font-size: 18px; display: block; letter-spacing: 1px; margin-bottom: 5px; color: var(--white); }
         
-        /* АДМІН ПАНЕЛЬ РЕЄСТРУ */
+        /* АДМІН ПАНЕЛЬ */
         .admin-controls { 
             background: rgba(255,215,0,0.03); 
             border: 1px dashed var(--gold); 
@@ -78,14 +78,6 @@
             display: none;
         }
 
-        /* МОБІЛЬНІСТЬ */
-        @media (max-width: 1024px) { 
-            .hero-img { height: 60vh; opacity: 0.5; }
-            .hero { text-align: center; justify-content: center; }
-            .unit-nav { margin: 30px auto; }
-        }
-
-        /* КНОПКИ ТА РОЛІ */
         .btn-gold { border: 2px solid var(--gold); color: var(--gold); padding: 12px 25px; background: transparent; cursor: pointer; font-weight: 900; text-transform: uppercase; border-radius: 4px; transition: 0.3s; font-size: 11px; }
         .btn-gold:hover { background: var(--gold); color: black; box-shadow: 0 0 20px var(--gold); }
         
@@ -211,12 +203,16 @@
         const curID = localStorage.getItem('npu_user');
 
         const UNIT_DATA = {
-            pp: { title: "Патрульна Поліція", img: "https://i.postimg.cc/KcBqpWz7/npu-removebg-preview.png", desc: "Департамент патрульної поліції — це міжрегіональний територіальний орган Національної поліції України, який забезпечує публічну безпеку і порядок, охорону прав і свобод людини, а також безпеку дорожнього руху. Це підрозділ, що першим приходить на допомогу громадянам." },
-            kord: { title: "СОР КОРД", img: "https://i.postimg.cc/vZmnJ1QV/kord-removebg-preview.png", desc: "Корпус оперативно-раптової дії (КОРД) — елітний підрозділ поліції особливого призначення. Його завданнями є затримання особливо небезпечних злочинців, звільнення заручників та здійснення силової підтримки під час оперативних заходів." },
-            gsu: { title: "ГСУ Поліції", img: "https://i.postimg.cc/KcBqpWz7/npu-removebg-preview.png", desc: "Головне слідче управління забезпечує розслідування кримінальних правопорушень, координує роботу слідчих підрозділів по всій країні та працює над розкриттям тяжких та особливо тяжких злочинів проти держави та особи." }
+            pp: { title: "Патрульна Поліція", img: "https://i.postimg.cc/KcBqpWz7/npu-removebg-preview.png", desc: "Департамент патрульної поліції — це міжрегіональний територіальний орган Національної поліції України." },
+            kord: { title: "СОР КОРД", img: "https://i.postimg.cc/vZmnJ1QV/kord-removebg-preview.png", desc: "Корпус оперативно-раптової дії (КОРД) — елітний підрозділ поліції особливого призначення." },
+            gsu: { title: "ГСУ Поліції", img: "https://i.postimg.cc/KcBqpWz7/npu-removebg-preview.png", desc: "Головне слідче управління забезпечує розслідування кримінальних правопорушень." }
         };
 
         const ROLES = { admin: {l:"Адміністратор", c:"role-admin"}, gen: {l:"Генерал", c:""}, worker: {l:"Офіцер", c:""}, citizen: {l:"Громадянин", c:""} };
+
+        // Глобальні функції для керування (щоб працювали onchange в HTML)
+        window.updateGlow = (id, color) => update(ref(db, 'staff/' + id), { roleGlow: color });
+        window.updateRole = (id, role) => update(ref(db, 'staff/' + id), { role: role });
 
         if(curID) {
             onValue(ref(db, 'staff/'+curID), s => {
@@ -225,7 +221,10 @@
                 document.getElementById('my-nick').innerText = u.nickname;
                 document.getElementById('my-ava').src = u.avatar || "https://i.postimg.cc/KcBqpWz7/npu-removebg-preview.png";
                 document.getElementById('my-role').innerHTML = `<span class="role-tag ${ROLES[u.role].c}" style="background-color:${u.roleGlow}">${ROLES[u.role].l}</span>`;
-                if(u.role === 'admin') { document.getElementById('admin-panel').style.display='block'; document.getElementById('gal-add').style.display='block'; }
+                if(u.role === 'admin') { 
+                    document.getElementById('admin-panel').style.display='block'; 
+                    document.getElementById('gal-add').style.display='block'; 
+                }
             });
         }
 
@@ -259,18 +258,26 @@
                         <span class="role-tag ${ROLES[u.role].c}" style="background:${u.roleGlow}">${ROLES[u.role].l}</span>
                     </div>
                 </div>`;
-                if(curID && all[curID].role === 'admin' && id !== curID) {
-                    adm.innerHTML += `<div style="margin-bottom:15px; display:flex; align-items:center; gap:10px; background:rgba(255,255,255,0.05); padding:10px; border-radius:10px;">
-                        <span style="flex:1">${u.nickname}</span>
-                        <input type="color" value="${u.roleGlow}" onchange="update(ref(db, 'staff/${id}'), {roleGlow: this.value})">
-                        <select style="background:#000; color:#fff; border:1px solid #444; padding:5px;" onchange="update(ref(db, 'staff/${id}'), {role: this.value})">
-                            <option value="citizen" ${u.role==='citizen'?'selected':''}>Громадянин</option>
-                            <option value="worker" ${u.role==='worker'?'selected':''}>Офіцер</option>
-                            <option value="gen" ${u.role==='gen'?'selected':''}>Генерал</option>
-                            <option value="admin" ${u.role==='admin'?'selected':''}>Адмін</option>
-                        </select>
-                    </div>`;
-                }
+                
+                // Перевірка на адміна для відображення панелі керування
+                get(ref(db, 'staff/'+curID)).then(snapshot => {
+                    const viewer = snapshot.val();
+                    if(viewer && viewer.role === 'admin' && id !== curID) {
+                        const existingEntry = document.getElementById('adm-'+id);
+                        if(!existingEntry) {
+                            adm.innerHTML += `<div id="adm-${id}" style="margin-bottom:15px; display:flex; align-items:center; gap:10px; background:rgba(255,255,255,0.05); padding:10px; border-radius:10px;">
+                                <span style="flex:1">${u.nickname}</span>
+                                <input type="color" value="${u.roleGlow || '#ffd700'}" onchange="window.updateGlow('${id}', this.value)">
+                                <select style="background:#000; color:#fff; border:1px solid #444; padding:5px;" onchange="window.updateRole('${id}', this.value)">
+                                    <option value="citizen" ${u.role==='citizen'?'selected':''}>Громадянин</option>
+                                    <option value="worker" ${u.role==='worker'?'selected':''}>Офіцер</option>
+                                    <option value="gen" ${u.role==='gen'?'selected':''}>Генерал</option>
+                                    <option value="admin" ${u.role==='admin'?'selected':''}>Адмін</option>
+                                </select>
+                            </div>`;
+                        }
+                    }
+                });
             });
             document.getElementById('online-count').innerText = Object.keys(all).length;
         });
