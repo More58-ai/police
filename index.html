@@ -3,62 +3,99 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>НПУ | Київ - Портал 2026</title>
+    <title>Національна поліція України</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        :root { --gold: #ffd700; --blue: #0066ff; --bg: #050505; --white: #ffffff; --online: #00ff88; --offline: #555; }
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root { --gold: #ffd700; --blue: #0066ff; --bg: #050505; --white: #ffffff; --online: #00ff88; }
+        * { margin: 0; padding: 0; box-sizing: border-box; outline: none; }
         body, html { width: 100%; height: 100%; font-family: 'Montserrat', sans-serif; background-color: var(--bg); color: white; overflow-x: hidden; }
 
-        /* ЕФЕКТИ */
+        /* ЕФЕКТИ ТА ФОН */
         #snow-canvas { position: fixed; top: 0; left: 0; pointer-events: none; z-index: 1002; }
-        .background-scene { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background-image: url('https://i.postimg.cc/V6dqQJmL/Gemini-Generated-Image-1jznmn1jznmn1jzn.png'); background-size: cover; background-position: center; z-index: -2; filter: brightness(0.15) blur(5px); }
-        .gradient-mask { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle at center, transparent 0%, rgba(5,5,5,0.8) 100%); z-index: -1; }
+        .background-scene { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background-image: url('https://i.postimg.cc/V6dqQJmL/Gemini-Generated-Image-1jznmn1jznmn1jzn.png'); background-size: cover; background-position: center; z-index: -2; filter: brightness(0.12) blur(5px); }
+        .gradient-mask { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle at center, transparent 0%, rgba(5,5,5,0.9) 100%); z-index: -1; }
 
         /* HEADER */
-        header { display: flex; justify-content: space-between; align-items: center; padding: 10px 40px; position: fixed; width: 100%; top: 0; z-index: 1000; background: rgba(0,0,0,0.85); backdrop-filter: blur(25px); border-bottom: 2px solid rgba(255,215,0,0.3); }
-        .logo-container { perspective: 1000px; display: flex; align-items: center; gap: 15px; cursor: pointer; }
-        .npu-emblem-3d { height: 65px; filter: drop-shadow(0 0 10px var(--blue)); transition: transform 0.2s; transform-style: preserve-3d; }
-        .online-counter { background: rgba(0, 255, 136, 0.1); border: 1px solid var(--online); padding: 4px 12px; border-radius: 50px; font-size: 10px; font-weight: 900; color: var(--online); display: flex; align-items: center; gap: 5px; margin-top: 5px; }
-
-        .nav-links { display: flex; gap: 20px; align-items: center; }
-        .nav-link { cursor: pointer; font-size: 11px; font-weight: 900; text-transform: uppercase; transition: 0.3s; color: rgba(255,255,255,0.7); border-bottom: 2px solid transparent; }
-        .nav-link:hover { color: var(--gold); border-bottom-color: var(--gold); }
-
-        /* РОЛІ */
-        .role-tag { font-size: 9px; padding: 4px 12px; border-radius: 50px; font-weight: 900; text-transform: uppercase; display: inline-flex; align-items: center; gap: 5px; }
-        .role-admin { background: linear-gradient(45deg, #f00, #ff7300, #ff0, #0f0, #0ff, #00f, #7a00ff, #f0c, #f00); background-size: 400%; animation: rainbow 8s linear infinite; color: white; }
-        .role-gen { background: var(--gold); color: black; box-shadow: 0 0 10px var(--gold); }
-        .role-worker { background: var(--blue); color: white; }
-        .role-citizen { background: #555; color: #ccc; }
-        .role-lead { background: #ffffff; color: #000; border: 1px solid var(--gold); }
-
-        /* КАРТКИ */
-        .staff-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 25px; }
-        .staff-card { background: rgba(20,20,20,0.8); border: 1px solid #333; padding: 20px; border-radius: 15px; transition: 0.4s; }
-        .staff-card:hover { border-color: var(--gold); transform: translateY(-5px); }
-
-        /* СТОРІНКИ */
-        .page { position: fixed; inset: 0; background: rgba(5,5,5,0.98); z-index: 2000; display: none; flex-direction: column; padding: 140px 10% 50px; overflow-y: auto; }
-        .unit-box { background: rgba(255,255,255,0.02); border: 1px solid rgba(255,215,0,0.1); border-radius: 40px; padding: 40px; display: flex; align-items: center; gap: 40px; }
+        header { display: flex; justify-content: space-between; align-items: center; padding: 15px 5%; position: fixed; width: 100%; top: 0; z-index: 1000; background: rgba(0,0,0,0.9); backdrop-filter: blur(15px); border-bottom: 1px solid rgba(255,215,0,0.3); }
+        .logo-container { display: flex; align-items: center; gap: 12px; }
+        .header-logo { height: 50px; }
         
-        /* АДМІН ПАНЕЛЬ */
-        .admin-panel { margin-top: 50px; padding: 30px; background: rgba(255,215,0,0.05); border: 1px dashed var(--gold); border-radius: 20px; }
-        .admin-user-card { background: #111; padding: 15px; border-radius: 10px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; border-left: 4px solid var(--gold); }
-        .select-role { background: #000; color: var(--gold); border: 1px solid #444; padding: 8px; border-radius: 5px; }
+        /* ОНЛАЙН В КУТКУ */
+        .online-box { position: fixed; bottom: 20px; left: 20px; z-index: 1001; background: rgba(0,0,0,0.7); padding: 5px 15px; border-radius: 50px; border: 1px solid var(--online); font-size: 10px; font-weight: 900; color: var(--online); letter-spacing: 1px; }
 
-        /* КНОПКИ */
-        .btn-gold { border: 2px solid var(--gold); color: var(--gold); padding: 12px 30px; background: transparent; cursor: pointer; font-weight: 900; text-transform: uppercase; border-radius: 4px; transition: 0.3s; }
+        /* HERO SECTION */
+        .hero { min-height: 100vh; padding: 120px 5% 50px; display: flex; align-items: center; position: relative; }
+        .hero-content { z-index: 10; max-width: 800px; }
+        .hero-img { position: absolute; right: 2%; bottom: 0; height: 85vh; z-index: 1; pointer-events: none; }
+        .hero h1 { font-size: clamp(30px, 6vw, 70px); font-weight: 900; line-height: 1; text-transform: uppercase; margin-bottom: 20px; }
+        
+        /* КНОПКИ ПІДРОЗДІЛІВ */
+        .unit-nav { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-top: 30px; max-width: 400px; }
+
+        /* SIDEBAR (ВИСУВНЕ ВІКНО) */
+        .sidebar { position: fixed; top: 0; right: -100%; width: 100%; max-width: 450px; height: 100%; background: rgba(5,5,5,0.98); z-index: 3000; transition: 0.5s cubic-bezier(0.77, 0, 0.175, 1); padding: 80px 40px; border-left: 2px solid var(--gold); overflow-y: auto; }
+        .sidebar.active { right: 0; }
+        .side-logo { width: 180px; display: block; margin: 0 auto 30px; animation: float 3s ease-in-out infinite; }
+        @keyframes float { 0%, 100% { transform: translateY(0); filter: drop-shadow(0 0 5px var(--blue)); } 50% { transform: translateY(-15px); filter: drop-shadow(0 0 20px var(--blue)); } }
+        .side-text { font-size: 15px; line-height: 1.8; opacity: 0.8; margin-bottom: 40px; text-align: justify; }
+
+        /* РЕЄСТР (КРАСИВИЙ ДИЗАЙН) */
+        .staff-page { position: fixed; inset: 0; background: radial-gradient(circle at top, #111, #050505); z-index: 4000; display: none; padding: 100px 5% 50px; overflow-y: auto; }
+        .staff-container { max-width: 1200px; margin: 0 auto; }
+        .staff-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 25px; margin-top: 30px; }
+        
+        .staff-card { 
+            background: linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.01) 100%);
+            border: 1px solid rgba(255,215,0,0.1);
+            border-radius: 20px;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            transition: 0.4s;
+            position: relative;
+            overflow: hidden;
+        }
+        .staff-card::before {
+            content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,215,0,0.05), transparent);
+            transition: 0.5s;
+        }
+        .staff-card:hover { transform: translateY(-5px); border-color: var(--gold); background: rgba(255,215,0,0.03); }
+        .staff-card:hover::before { left: 100%; }
+
+        .staff-ava { width: 70px; height: 70px; border-radius: 15px; object-fit: cover; border: 2px solid rgba(255,215,0,0.2); background: #111; }
+        .staff-info b { font-size: 18px; display: block; letter-spacing: 1px; margin-bottom: 5px; color: var(--white); }
+        
+        /* АДМІН ПАНЕЛЬ РЕЄСТРУ */
+        .admin-controls { 
+            background: rgba(255,215,0,0.03); 
+            border: 1px dashed var(--gold); 
+            padding: 25px; 
+            border-radius: 20px; 
+            margin-top: 50px; 
+            display: none;
+        }
+
+        /* МОБІЛЬНІСТЬ */
+        @media (max-width: 1024px) { 
+            .hero-img { height: 60vh; opacity: 0.5; }
+            .hero { text-align: center; justify-content: center; }
+            .unit-nav { margin: 30px auto; }
+        }
+
+        /* КНОПКИ ТА РОЛІ */
+        .btn-gold { border: 2px solid var(--gold); color: var(--gold); padding: 12px 25px; background: transparent; cursor: pointer; font-weight: 900; text-transform: uppercase; border-radius: 4px; transition: 0.3s; font-size: 11px; }
         .btn-gold:hover { background: var(--gold); color: black; box-shadow: 0 0 20px var(--gold); }
+        
+        .role-tag { font-size: 10px; padding: 5px 12px; border-radius: 6px; font-weight: 900; text-transform: uppercase; letter-spacing: 1px; display: inline-block; box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
+        .role-admin { background: linear-gradient(90deg, #f00, #ff0, #f00); background-size: 200%; animation: rb 3s linear infinite; color: #fff; text-shadow: 0 0 5px #000; }
+        @keyframes rb { 0%{background-position:0%} 100%{background-position:200%} }
 
-        /* МОДАЛКИ */
-        .modal { position: fixed; inset: 0; background: rgba(0,0,0,0.95); z-index: 5000; display: none; align-items: center; justify-content: center; backdrop-filter: blur(15px); }
-        .modal-content { background: #0a0a0a; border: 2px solid var(--gold); padding: 40px; border-radius: 30px; text-align: center; width: 100%; max-width: 450px; }
-
-        #auth-screen { position: fixed; inset: 0; background: var(--bg); z-index: 9999; display: flex; align-items: center; justify-content: center; }
-
-        @keyframes rainbow { 0% { background-position: 0% 50%; } 100% { background-position: 100% 50%; } }
+        .modal { position: fixed; inset: 0; background: rgba(0,0,0,0.95); z-index: 5000; display: none; align-items: center; justify-content: center; padding: 20px; }
+        .modal-content { background: #0a0a0a; border: 2px solid var(--gold); padding: 40px; border-radius: 20px; text-align: center; width: 100%; max-width: 400px; }
+        .leader-img { width: 180px; height: 180px; border-radius: 20px; object-fit: cover; border: 2px solid var(--gold); margin-bottom: 20px; }
     </style>
 </head>
 <body onclick="playMusic()">
@@ -68,283 +105,214 @@
     <div class="background-scene"></div>
     <div class="gradient-mask"></div>
 
+    <div class="online-box">ONLINE: <span id="online-count">0</span></div>
+
     <header>
-        <div class="logo-container" onclick="location.reload()">
-            <img src="https://i.postimg.cc/KcBqpWz7/npu-removebg-preview.png" class="npu-emblem-3d" id="header-logo">
-            <div>
-                <b style="font-size:20px; letter-spacing:2px; color:white;">НПУ КИЇВ</b>
-                <div class="online-counter">ОНЛАЙН: <span id="online-count">0</span></div>
-            </div>
+        <div class="logo-container">
+            <img src="https://i.postimg.cc/KcBqpWz7/npu-removebg-preview.png" class="header-logo">
+            <b style="letter-spacing:1px; font-size: 14px;">НАЦІОНАЛЬНА ПОЛІЦІЯ УКРАЇНИ</b>
         </div>
-        <div class="nav-links">
-            <div class="nav-link" onclick="openPage('page-pp')">Патрульна</div>
-            <div class="nav-link" onclick="openPage('page-gsu')">ГСУ</div>
-            <div class="nav-link" onclick="openPage('page-kord')">КОРД</div>
-            <div class="nav-link" onclick="openPage('page-staff')" style="color:var(--gold)">Реєстр</div>
-            <button class="btn-gold" style="padding: 8px 20px; font-size: 11px;" onclick="toggleModal('modal-account', true)">Кабінет</button>
+        <div style="display:flex; gap:10px;">
+            <button class="btn-gold" style="padding:8px 15px;" onclick="openPage('page-staff')">РЕЄСТР</button>
+            <button class="btn-gold" style="padding:8px 15px;" onclick="toggleModal('modal-account', true)">ПРОФІЛЬ</button>
         </div>
     </header>
 
-    <main style="padding: 240px 12%;">
-        <h1 style="font-size: clamp(40px, 8vw, 85px); font-weight: 900; line-height: 0.85;">ГОЛОВНЕ<br>УПРАВЛІННЯ<br><span style="color:var(--gold)">ПОЛІЦІЇ КИЄВА</span></h1>
-        <p style="max-width: 600px; margin: 40px 0; font-size: 18px; opacity: 0.6;">Система моніторингу та обліку особового складу ГУНП м. Києва 2026.</p>
-        <div style="display:flex; gap:20px; flex-wrap: wrap;">
-            <button class="btn-gold" onclick="openPage('page-staff')">РЕЄСТР ПРАЦІВНИКІВ</button>
-            <button class="btn-gold" style="border-color:white; color:white;" onclick="window.open('https://discord.gg/npu-kyiv')">DISCORD</button>
+    <main class="hero">
+        <img src="https://i.postimg.cc/QtKW3skc/snapedit-1768682778382-removebg-preview.png" class="hero-img">
+        <div class="hero-content">
+            <h1>СЛУЖИТИ ТА<br><span style="color:var(--gold)">ЗАХИЩАТИ</span></h1>
+            <p style="opacity:0.7; max-width: 500px; line-height:1.6;">Офіційний інформаційний портал Національної поліції України. Моніторинг особового складу, архів подій та доступ до підрозділів.</p>
+            
+            <div class="unit-nav">
+                <button class="btn-gold" onclick="openSidebar('pp')">Патрульна</button>
+                <button class="btn-gold" onclick="openSidebar('kord')">КОРД</button>
+                <button class="btn-gold" onclick="openSidebar('gsu')">ГСУ</button>
+                <button class="btn-gold" onclick="openPage('page-gallery')">Галерея</button>
+            </div>
         </div>
     </main>
 
-    <div id="page-pp" class="page">
-        <div class="unit-box">
-            <img src="https://i.postimg.cc/KcBqpWz7/npu-removebg-preview.png" class="npu-emblem-3d" style="width:150px">
-            <div class="unit-text"><h1>ПАТРУЛЬНА ПОЛІЦІЯ</h1><p>Забезпечення публічної безпеки та порядку на вулицях столиці.</p><button class="btn-gold" onclick="showLeader('lead_pp')">КЕРІВНИЦТВО</button></div>
-        </div>
-        <button class="btn-gold" style="margin-top:40px; width:180px;" onclick="closePage()">← НАЗАД</button>
+    <div id="side-panel" class="sidebar">
+        <button onclick="closeSidebar()" style="position:absolute; top:30px; left:30px; background:none; border:none; color:var(--gold); font-size:30px; cursor:pointer;">&times;</button>
+        <img id="side-img" src="" class="side-logo">
+        <h2 id="side-title" style="text-align:center; color:var(--gold); margin-bottom:20px; font-weight:900;"></h2>
+        <p id="side-desc" class="side-text"></p>
+        <button class="btn-gold" style="width:100%" id="side-btn-leader">Керівник підрозділу</button>
     </div>
 
-    <div id="page-gsu" class="page">
-        <div class="unit-box">
-            <img src="https://i.postimg.cc/KcBqpWz7/npu-removebg-preview.png" class="npu-emblem-3d" style="width:150px">
-            <div class="unit-text"><h1>ГСУ</h1><p>Головне слідче управління. Розслідування особливо тяжких злочинів.</p><button class="btn-gold" onclick="showLeader('lead_gsu')">КЕРІВНИЦТВО</button></div>
-        </div>
-        <button class="btn-gold" style="margin-top:40px; width:180px;" onclick="closePage()">← НАЗАД</button>
-    </div>
+    <div id="page-staff" class="staff-page">
+        <div class="staff-container">
+            <h1 style="text-align:center; margin-bottom:10px; font-weight:900; font-size:40px; color:var(--gold);">ОСОБОВИЙ СКЛАД</h1>
+            <p style="text-align:center; opacity:0.5; letter-spacing:3px; margin-bottom:40px;">NATIONAL POLICE REGISTER</p>
+            
+            <div id="staff-list" class="staff-grid"></div>
 
-    <div id="page-kord" class="page">
-        <div class="unit-box">
-            <img src="https://i.postimg.cc/vZmnJ1QV/kord-removebg-preview.png" class="npu-emblem-3d" style="width:150px">
-            <div class="unit-text"><h1>КОРД</h1><p>Корпус оперативно-раптової дії. Спецпризначенці НПУ.</p><button class="btn-gold" onclick="showLeader('lead_kord')">КЕРІВНИЦТВО</button></div>
-        </div>
-        <button class="btn-gold" style="margin-top:40px; width:180px;" onclick="closePage()">← НАЗАД</button>
-    </div>
-
-    <div id="page-staff" class="page">
-        <h1 style="text-align:center; margin-bottom:50px; letter-spacing:5px;">ОСОБОВИЙ СКЛАД</h1>
-        <div id="staff-list" class="staff-grid"></div>
-
-        <div id="admin-section" class="admin-panel" style="display:none;">
-            <h2 style="color:var(--gold); margin-bottom:20px; text-align:center;">АДМІНІСТРУВАННЯ</h2>
-            <div id="admin-user-list"></div>
-        </div>
-
-        <button class="btn-gold" style="margin: 50px auto; display:block;" onclick="closePage()">ЗАКРИТИ СТОРОНУ</button>
-    </div>
-
-    <div class="modal" id="modal-account">
-        <div class="modal-content">
-            <img id="my-avatar" src="" style="width:120px; height:120px; border-radius:50%; border:3px solid var(--gold); object-fit:cover; margin-bottom:15px;">
-            <h2 id="my-nickname">...</h2>
-            <div id="my-role-tag" style="margin: 10px 0 20px;"></div>
-            <button class="btn-gold" style="width:100%; margin-bottom:10px;" onclick="document.getElementById('file-in').click()">ОНОВИТИ ФОТО</button>
-            <input type="file" id="file-in" style="display:none" onchange="uploadAv(this)">
-            <button class="btn-gold" style="width:100%; border-color:#ff3333; color:#ff3333;" onclick="logout()">ВИЙТИ</button>
-            <p onclick="toggleModal('modal-account', false)" style="margin-top:20px; cursor:pointer; opacity:0.5;">Закрити</p>
-        </div>
-    </div>
-
-    <div class="modal" id="modal-leader">
-        <div class="modal-content">
-            <h3 style="color:var(--gold);">КЕРІВНИК</h3>
-            <img id="lead-img" src="" style="width:120px; height:120px; border-radius:15px; margin:15px 0; object-fit:cover;">
-            <h2 id="lead-name">...</h2>
-            <p id="lead-rank" style="opacity:0.7; margin-bottom:20px;">...</p>
-            <button class="btn-gold" onclick="toggleModal('modal-leader', false)">ЗАКРИТИ</button>
-        </div>
-    </div>
-
-    <div id="auth-screen">
-        <div class="modal-content">
-            <img src="https://i.postimg.cc/KcBqpWz7/npu-removebg-preview.png" style="height:80px; margin-bottom:20px;">
-            <h2>ВХІД / РЕЄСТРАЦІЯ</h2>
-            <input type="text" id="l-n" placeholder="Nickname" style="width:100%; padding:12px; margin:20px 0 10px; background:#111; border:1px solid #333; color:white; border-radius:5px;">
-            <input type="password" id="l-p" placeholder="Password" style="width:100%; padding:12px; margin-bottom:20px; background:#111; border:1px solid #333; color:white; border-radius:5px;">
-            <div style="display:flex; gap:10px;">
-                <button class="btn-gold" style="flex:1" onclick="login()">Вхід</button>
-                <button class="btn-gold" style="flex:1; border-color:#888; color:#888;" onclick="register()">Реєстрація</button>
+            <div id="admin-panel" class="admin-controls">
+                <h3 style="color:var(--gold); margin-bottom:20px; letter-spacing:1px;"><i class="fa-solid fa-user-gear"></i> КЕРУВАННЯ ПЕРСОНАЛОМ</h3>
+                <div id="admin-user-list"></div>
             </div>
-            <p id="auth-err" style="color:red; margin-top:15px; font-size:12px;"></p>
+            <button class="btn-gold" style="margin:60px auto; display:block; padding: 15px 50px;" onclick="document.getElementById('page-staff').style.display='none'">ПОВЕРНУТИСЬ НА ГОЛОВНУ</button>
+        </div>
+    </div>
+
+    <div id="page-gallery" style="position:fixed; inset:0; background:#050505; z-index:4000; display:none; padding:100px 5% 50px; overflow-y:auto;">
+        <h1 style="text-align:center; margin-bottom:40px;">ГАЛЕРЕЯ</h1>
+        <div id="gal-add" style="display:none; text-align:center; margin-bottom:20px;">
+            <input id="gal-url" placeholder="URL фото" style="padding:10px; background:#111; color:white; border:1px solid #333;">
+            <button class="btn-gold" onclick="addP()">ДОДАТИ</button>
+        </div>
+        <div id="gallery-list" style="display:grid; grid-template-columns:repeat(auto-fill, minmax(250px, 1fr)); gap:15px;"></div>
+        <button class="btn-gold" style="margin:40px auto; display:block;" onclick="document.getElementById('page-gallery').style.display='none'">НАЗАД</button>
+    </div>
+
+    <div id="modal-account" class="modal">
+        <div class="modal-content">
+            <div style="position:relative; display:inline-block">
+                <img id="my-ava" src="" class="leader-img" style="border-radius:50%; width:120px; height:120px;">
+                <label for="f" style="position:absolute; bottom:20px; right:0; background:var(--gold); width:30px; height:30px; border-radius:50%; color:black; display:flex; align-items:center; justify-content:center; cursor:pointer;"><i class="fa-solid fa-camera"></i></label>
+                <input type="file" id="f" style="display:none" onchange="up(this)">
+            </div>
+            <h2 id="my-nick" style="margin:10px 0;">...</h2>
+            <div id="my-role"></div>
+            <button class="btn-gold" style="width:100%; margin-top:20px; border-color:red; color:red;" onclick="logout()">Вихід</button>
+            <p onclick="toggleModal('modal-account', false)" style="margin-top:15px; cursor:pointer; opacity:0.5;">Закрити</p>
+        </div>
+    </div>
+
+    <div id="modal-leader" class="modal" onclick="this.style.display='none'">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <img id="l-img" src="" class="leader-img">
+            <h2 id="l-name" style="color:var(--gold);">...</h2>
+            <p id="l-rank" style="opacity:0.5; font-size:12px; margin-top:10px;"></p>
+            <button class="btn-gold" style="margin-top:25px;" onclick="document.getElementById('modal-leader').style.display='none'">ЗАКРИТИ</button>
+        </div>
+    </div>
+
+    <div id="viewer" class="modal" onclick="this.style.display='none'"><img id="v-img" style="max-width:95%; max-height:90vh; border:1px solid var(--gold);"></div>
+
+    <div id="auth-screen" style="position:fixed; inset:0; background:#050505; z-index:9999; display:flex; align-items:center; justify-content:center;">
+        <div class="modal-content">
+            <img src="https://i.postimg.cc/KcBqpWz7/npu-removebg-preview.png" style="height:60px; margin-bottom:20px;">
+            <input id="ln" placeholder="Позивний" style="width:100%; padding:12px; margin-bottom:10px; background:#111; border:1px solid #333; color:white;">
+            <input id="lp" type="password" placeholder="Пароль" style="width:100%; padding:12px; margin-bottom:20px; background:#111; border:1px solid #333; color:white;">
+            <button class="btn-gold" style="width:100%" onclick="login()">УВІЙТИ</button>
+            <p style="margin-top:15px; font-size:10px; opacity:0.4; cursor:pointer;" onclick="reg()">Зареєструватись</p>
         </div>
     </div>
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js";
-        import { getDatabase, ref, set, onValue, get, update, onDisconnect } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-database.js";
+        import { getDatabase, ref, set, onValue, get, update, push } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-database.js";
 
-        // КОНФІГ (Переконайся, що посилання на базу правильне)
-        const firebaseConfig = { databaseURL: "https://npuofukraine-default-rtdb.firebaseio.com/" };
-        const app = initializeApp(firebaseConfig);
+        const config = { databaseURL: "https://npuofukraine-default-rtdb.firebaseio.com/" };
+        const app = initializeApp(config);
         const db = getDatabase(app);
         const curID = localStorage.getItem('npu_user');
 
-        const ROLES = {
-            admin: { label: "Адміністратор", cls: "role-admin" },
-            gen: { label: "Генерал НПУ", cls: "role-gen" },
-            worker: { label: "Офіцер", cls: "role-worker" },
-            citizen: { label: "Громадянин", cls: "role-citizen" },
-            lead_pp: { label: "Керівник ПП", cls: "role-lead" },
-            lead_gsu: { label: "Керівник ГСУ", cls: "role-lead" },
-            lead_kord: { label: "Керівник КОРД", cls: "role-lead" }
+        const UNIT_DATA = {
+            pp: { title: "Патрульна Поліція", img: "https://i.postimg.cc/KcBqpWz7/npu-removebg-preview.png", desc: "Департамент патрульної поліції — це міжрегіональний територіальний орган Національної поліції України, який забезпечує публічну безпеку і порядок, охорону прав і свобод людини, а також безпеку дорожнього руху. Це підрозділ, що першим приходить на допомогу громадянам." },
+            kord: { title: "СОР КОРД", img: "https://i.postimg.cc/vZmnJ1QV/kord-removebg-preview.png", desc: "Корпус оперативно-раптової дії (КОРД) — елітний підрозділ поліції особливого призначення. Його завданнями є затримання особливо небезпечних злочинців, звільнення заручників та здійснення силової підтримки під час оперативних заходів." },
+            gsu: { title: "ГСУ Поліції", img: "https://i.postimg.cc/KcBqpWz7/npu-removebg-preview.png", desc: "Головне слідче управління забезпечує розслідування кримінальних правопорушень, координує роботу слідчих підрозділів по всій країні та працює над розкриттям тяжких та особливо тяжких злочинів проти держави та особи." }
         };
 
-        // Перевірка сесії
-        if (curID) {
-            const myRef = ref(db, `online_users/${curID}`);
-            set(myRef, true);
-            onDisconnect(myRef).remove();
+        const ROLES = { admin: {l:"Адміністратор", c:"role-admin"}, gen: {l:"Генерал", c:""}, worker: {l:"Офіцер", c:""}, citizen: {l:"Громадянин", c:""} };
 
-            onValue(ref(db, 'staff/' + curID), s => {
-                const d = s.val();
-                if(d) {
-                    document.getElementById('auth-screen').style.display = 'none';
-                    document.getElementById('my-nickname').innerText = d.nickname;
-                    document.getElementById('my-avatar').src = d.avatar || "https://i.imgur.com/6VBx3io.png";
-                    const r = ROLES[d.role] || ROLES.citizen;
-                    document.getElementById('my-role-tag').innerHTML = `<span class="role-tag ${r.cls}">${r.label}</span>`;
-                }
+        if(curID) {
+            onValue(ref(db, 'staff/'+curID), s => {
+                const u = s.val(); if(!u) return;
+                document.getElementById('auth-screen').style.display = 'none';
+                document.getElementById('my-nick').innerText = u.nickname;
+                document.getElementById('my-ava').src = u.avatar || "https://i.postimg.cc/KcBqpWz7/npu-removebg-preview.png";
+                document.getElementById('my-role').innerHTML = `<span class="role-tag ${ROLES[u.role].c}" style="background-color:${u.roleGlow}">${ROLES[u.role].l}</span>`;
+                if(u.role === 'admin') { document.getElementById('admin-panel').style.display='block'; document.getElementById('gal-add').style.display='block'; }
             });
         }
 
-        // Кількість онлайн
-        onValue(ref(db, 'online_users'), snap => {
-            document.getElementById('online-count').innerText = snap.val() ? Object.keys(snap.val()).length : 0;
-        });
-
-        // Реєстрація (Громадянин за замовчуванням)
-        window.register = async () => {
-            const n = document.getElementById('l-n').value.trim();
-            const p = document.getElementById('l-p').value.trim();
-            if(!n || !p) return;
-            const s = await get(ref(db, 'staff/' + n));
-            if(s.exists()) {
-                document.getElementById('auth-err').innerText = "Нік зайнятий";
-            } else {
-                await set(ref(db, 'staff/' + n), {
-                    nickname: n, password: p, role: 'citizen', status: 'approved',
-                    avatar: "https://i.imgur.com/6VBx3io.png"
-                });
-                localStorage.setItem('npu_user', n);
-                location.reload();
-            }
-        };
-
-        // Вхід
         window.login = async () => {
-            const n = document.getElementById('l-n').value.trim();
-            const p = document.getElementById('l-p').value.trim();
-            const s = await get(ref(db, 'staff/' + n));
-            if(s.exists() && s.val().password === p) {
-                localStorage.setItem('npu_user', n);
-                location.reload();
-            } else {
-                document.getElementById('auth-err').innerText = "Невірні дані";
+            const n = document.getElementById('ln').value.trim();
+            const p = document.getElementById('lp').value.trim();
+            const s = await get(ref(db, 'staff/'+n));
+            if(s.exists() && s.val().password === p) { localStorage.setItem('npu_user', n); location.reload(); }
+        };
+
+        window.reg = async () => {
+            const n = document.getElementById('ln').value.trim();
+            const p = document.getElementById('lp').value.trim();
+            if(n && p) {
+                await set(ref(db, 'staff/'+n), { nickname: n, password: p, role: 'citizen', avatar: "", roleGlow: 'transparent' });
+                localStorage.setItem('npu_user', n); location.reload();
             }
         };
 
-        // Оновлення реєстру та адмін-панелі
-        onValue(ref(db, 'staff'), snap => {
-            const allStaff = snap.val() || {};
+        onValue(ref(db, 'staff'), s => {
+            const all = s.val() || {};
             const list = document.getElementById('staff-list');
-            const adminList = document.getElementById('admin-user-list');
-            const me = allStaff[curID];
-            
-            list.innerHTML = "";
-            adminList.innerHTML = "";
-
-            if(me && (me.role === 'admin' || me.role === 'gen')) {
-                document.getElementById('admin-section').style.display = 'block';
-            }
-
-            onValue(ref(db, 'online_users'), onlineSnap => {
-                const onlineData = onlineSnap.val() || {};
-                
-                Object.entries(allStaff).forEach(([nick, u]) => {
-                    const r = ROLES[u.role] || ROLES.citizen;
-                    const isOnline = onlineData[nick];
-
-                    // Додаємо в загальний реєстр
-                    const card = document.createElement('div');
-                    card.className = 'staff-card';
-                    card.innerHTML = `
-                        <div style="display:flex; align-items:center; gap:15px;">
-                            <div style="position:relative">
-                                <img src="${u.avatar}" style="width:50px; height:50px; border-radius:50%; object-fit:cover;">
-                                <span style="position:absolute; bottom:0; right:0; width:10px; height:10px; background:${isOnline ? 'var(--online)' : '#555'}; border-radius:50%; border:2px solid #000;"></span>
-                            </div>
-                            <div>
-                                <b>${u.nickname}</b><br>
-                                <span class="role-tag ${r.cls}" style="font-size:7px;">${r.label}</span>
-                            </div>
-                        </div>`;
-                    list.appendChild(card);
-
-                    // Додаємо в адмін-панель (якщо є права)
-                    if(me && (me.role === 'admin' || me.role === 'gen') && nick !== curID) {
-                        const canManage = me.role === 'admin' || (me.role === 'gen' && u.role !== 'admin' && u.role !== 'gen');
-                        
-                        const row = document.createElement('div');
-                        row.className = 'admin-user-card';
-                        row.innerHTML = `
-                            <span>${u.nickname}</span>
-                            <div>
-                                ${canManage ? `
-                                    <select class="select-role" onchange="changeRole('${nick}', this.value)">
-                                        ${Object.entries(ROLES).map(([key, val]) => {
-                                            if(me.role === 'gen' && (key === 'admin' || key === 'gen')) return '';
-                                            return `<option value="${key}" ${u.role === key ? 'selected' : ''}>${val.label}</option>`;
-                                        }).join('')}
-                                    </select>
-                                    <button onclick="deleteUser('${nick}')" style="color:red; margin-left:10px; background:none; border:none; cursor:pointer;"><i class="fa-solid fa-trash"></i></button>
-                                ` : '<small>Немає доступу</small>'}
-                            </div>`;
-                        adminList.appendChild(row);
-                    }
-                });
+            const adm = document.getElementById('admin-user-list');
+            list.innerHTML = ""; adm.innerHTML = "";
+            Object.entries(all).forEach(([id, u]) => {
+                list.innerHTML += `
+                <div class="staff-card">
+                    <img src="${u.avatar || 'https://i.postimg.cc/KcBqpWz7/npu-removebg-preview.png'}" class="staff-ava">
+                    <div class="staff-info">
+                        <b>${u.nickname}</b>
+                        <span class="role-tag ${ROLES[u.role].c}" style="background:${u.roleGlow}">${ROLES[u.role].l}</span>
+                    </div>
+                </div>`;
+                if(curID && all[curID].role === 'admin' && id !== curID) {
+                    adm.innerHTML += `<div style="margin-bottom:15px; display:flex; align-items:center; gap:10px; background:rgba(255,255,255,0.05); padding:10px; border-radius:10px;">
+                        <span style="flex:1">${u.nickname}</span>
+                        <input type="color" value="${u.roleGlow}" onchange="update(ref(db, 'staff/${id}'), {roleGlow: this.value})">
+                        <select style="background:#000; color:#fff; border:1px solid #444; padding:5px;" onchange="update(ref(db, 'staff/${id}'), {role: this.value})">
+                            <option value="citizen" ${u.role==='citizen'?'selected':''}>Громадянин</option>
+                            <option value="worker" ${u.role==='worker'?'selected':''}>Офіцер</option>
+                            <option value="gen" ${u.role==='gen'?'selected':''}>Генерал</option>
+                            <option value="admin" ${u.role==='admin'?'selected':''}>Адмін</option>
+                        </select>
+                    </div>`;
+                }
             });
+            document.getElementById('online-count').innerText = Object.keys(all).length;
         });
 
-        window.changeRole = (target, role) => {
-            if(confirm(`Змінити роль для ${target}?`)) update(ref(db, 'staff/'+target), { role: role });
+        onValue(ref(db, 'gallery'), s => {
+            const g = document.getElementById('gallery-list'); g.innerHTML = "";
+            Object.values(s.val()||{}).forEach(i => g.innerHTML += `<img src="${i.url}" onclick="v('${i.url}')" style="width:100%; height:150px; object-fit:cover; border-radius:10px; cursor:pointer; border:1px solid #222;">`);
+        });
+
+        window.openSidebar = (type) => {
+            const data = UNIT_DATA[type];
+            document.getElementById('side-img').src = data.img;
+            document.getElementById('side-title').innerText = data.title;
+            document.getElementById('side-desc').innerText = data.desc;
+            document.getElementById('side-btn-leader').onclick = () => showLeader(type);
+            document.getElementById('side-panel').classList.add('active');
         };
 
-        window.deleteUser = (target) => {
-            if(confirm(`Видалити ${target}?`)) set(ref(db, 'staff/'+target), null);
+        window.showLeader = async (t) => {
+            const s = await get(ref(db, 'staff'));
+            const u = Object.values(s.val()||{}).find(x => x.role === (t==='pp'?'gen':'admin'));
+            document.getElementById('l-img').src = u ? u.avatar : "https://i.postimg.cc/KcBqpWz7/npu-removebg-preview.png";
+            document.getElementById('l-name').innerText = u ? u.nickname : "ВАКАНТНО";
+            document.getElementById('l-rank').innerText = "КЕРІВНИК ПІДРОЗДІЛУ";
+            document.getElementById('modal-leader').style.display='flex';
         };
 
-        window.uploadAv = (input) => {
-            const r = new FileReader();
-            r.onload = () => update(ref(db, 'staff/'+curID), { avatar: r.result });
-            if(input.files[0]) r.readAsDataURL(input.files[0]);
-        };
-
-        // Утиліти
-        window.openPage = id => { closePage(); document.getElementById(id).style.display = 'flex'; };
-        window.closePage = () => document.querySelectorAll('.page').forEach(p => p.style.display = 'none');
+        window.closeSidebar = () => document.getElementById('side-panel').classList.remove('active');
+        window.v = (u) => { document.getElementById('v-img').src = u; document.getElementById('viewer').style.display='flex'; };
+        window.up = (i) => { if(i.files[0]){ const r = new FileReader(); r.onload=(e)=>update(ref(db,'staff/'+curID),{avatar:e.target.result}); r.readAsDataURL(i.files[0]); }};
+        window.addP = () => { const u = document.getElementById('gal-url').value; if(u) push(ref(db, 'gallery'), {url: u}); };
+        window.openPage = (id) => document.getElementById(id).style.display = 'block';
         window.toggleModal = (id, s) => document.getElementById(id).style.display = s ? 'flex' : 'none';
         window.logout = () => { localStorage.clear(); location.reload(); };
 
-        window.showLeader = async (roleType) => {
-            const s = await get(ref(db, 'staff'));
-            const data = s.val() || {};
-            let found = Object.values(data).find(u => u.role === roleType);
-            document.getElementById('lead-img').src = found ? found.avatar : "https://i.imgur.com/6VBx3io.png";
-            document.getElementById('lead-name').innerText = found ? found.nickname : "Вакантно";
-            document.getElementById('lead-rank').innerText = ROLES[roleType].label;
-            toggleModal('modal-leader', true);
-        };
-
-        // SNOW & 3D
+        // СНІГ
         const cvs=document.getElementById('snow-canvas'); const ctx=cvs.getContext('2d'); let fs=[];
-        function res(){ cvs.width=window.innerWidth; cvs.height=window.innerHeight; fs=[]; for(let i=0;i<80;i++) fs.push({x:Math.random()*cvs.width, y:Math.random()*cvs.height, r:Math.random()*2+1, s:Math.random()*0.5+0.2}); }
+        function res(){ cvs.width=window.innerWidth; cvs.height=window.innerHeight; fs=[]; for(let i=0;i<100;i++) fs.push({x:Math.random()*cvs.width, y:Math.random()*cvs.height, r:Math.random()*2+1, s:Math.random()*2+2}); }
         function drw(){ ctx.clearRect(0,0,cvs.width,cvs.height); ctx.fillStyle="white"; ctx.beginPath(); fs.forEach(f=>{ ctx.moveTo(f.x,f.y); ctx.arc(f.x,f.y,f.r,0,Math.PI*2); f.y+=f.s; if(f.y>cvs.height)f.y=-5; }); ctx.fill(); requestAnimationFrame(drw); }
-        window.onresize=res; res(); drw();
+        res(); drw(); window.onresize=res;
 
-        document.addEventListener('mousemove', e => {
-            const x = (window.innerWidth / 2 - e.clientX) / 30;
-            const y = (window.innerHeight / 2 - e.clientY) / 30;
-            document.querySelectorAll('.npu-emblem-3d').forEach(el => el.style.transform = `rotateY(${-x}deg) rotateX(${y}deg)`);
-        });
-
-        let aOn=false; window.playMusic=()=>{ if(!aOn){ let m=document.getElementById('bg-music'); m.volume=0.1; m.play(); aOn=true; } };
+        let aOn=false; window.playMusic=()=>{ if(!aOn){ let m=document.getElementById('bg-music'); m.volume=0.1; m.play().catch(()=>{}); aOn=true; } };
     </script>
 </body>
 </html>
